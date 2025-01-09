@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Merriweather, Manrope } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/frontend/footer";
 const merriweather = Manrope({
   weight: ["300", "400", "500", "600", "700", "800"],
   style: ["normal"],
