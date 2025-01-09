@@ -35,7 +35,7 @@ const DepartmentComponent = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto px-4 py-16 mt-10">
       <div className="text-center mb-5">
         <h2 className="md:text-3xl text-xl font-bold mb-3">
           Dedicated Departments Providing Exceptional Care

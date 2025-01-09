@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Merriweather } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/frontend/footer";
 const merriweather = Merriweather({
   weight: ["300", "400", "700", "900"],
   style: ["normal", "italic"],
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={merriweather.className}>
         <div className="bg-white">{children}</div>
+        <Footer/>
       </body>
     </html>
   );
