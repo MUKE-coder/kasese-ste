@@ -52,7 +52,7 @@ const Navbar = () => {
             ))}
           </div>
           <div className="hidden md:block">
-            <ThemeButton />
+            <ThemeButton title="Book Appointment" href="/book-appointment" />
           </div>
 
           {/* Mobile menu button */}
@@ -89,7 +89,7 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="px-3 py-2">
-              <ThemeButton />
+              <ThemeButton title="Book Appointment" href="/book-appointment" />
             </div>
           </div>
         </div>

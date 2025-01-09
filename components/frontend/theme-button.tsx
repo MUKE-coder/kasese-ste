@@ -1,14 +1,17 @@
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
-
-const ThemeButton = () => {
+export interface ThemeButtonProps {
+  href: string;
+  title: string;
+}
+const ThemeButton = ({ href, title }: ThemeButtonProps) => {
   return (
     <Link
-      href="/book-appointment"
+      href={href}
       className="group inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-[#00bf8f] to-[#001510] text-white font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25 relative overflow-hidden"
     >
       <span className="relative z-10 flex items-center gap-4">
-        Book Appointment
+        {title}
         <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-black transition-transform group-hover:rotate-45">
           <MoveUpRight className="w-6 h-4" />
         </div>
