@@ -23,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={merriweather.className}>
         <div className="bg-white">{children}</div>
+        <Footer />
       </body>
     </html>
   );

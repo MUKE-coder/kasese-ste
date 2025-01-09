@@ -13,6 +13,7 @@ export default function Home() {
       <DepartmentComponent />
       <AppointmentForm />
       <FAQ />
+      <GuideComponent />
     </main>
   );
 }
