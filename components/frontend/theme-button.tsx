@@ -1,25 +1,19 @@
+import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
 
 const ThemeButton = () => {
   return (
     <Link
       href="/book-appointment"
-      className="inline-flex items-center px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-lg transition-colors"
+      className="group inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-[#00bf8f] to-[#001510] text-white font-medium rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25 relative overflow-hidden"
     >
-      Book Appointment
-      <svg
-        className="ml-2 h-4 w-4"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 5l7 7-7 7"
-        />
-      </svg>
+      <span className="relative z-10 flex items-center gap-4">
+        Book Appointment
+        <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-black transition-transform group-hover:rotate-45">
+          <MoveUpRight className="w-6 h-4" />
+        </div>
+      </span>
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </Link>
   );
 };

@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={merriweather.className}>{children}</body>
+      <body className={merriweather.className}>
+        <div className="bg-white">{children}</div>
+      </body>
     </html>
   );
 }

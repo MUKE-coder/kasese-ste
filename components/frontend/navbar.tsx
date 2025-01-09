@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import ThemeButton from "./theme-button";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Logo from "./logo";
 
 interface NavItem {
   label: string;
@@ -21,26 +24,17 @@ const navItems: NavItem[] = [
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const pathname = usePathname();
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-[#f0fdf4] shadow-sm rounded-none  md:rounded-full mx-0 md:mx-8 md:my-4 my-0">
+      <div className="max-w-7xl mx-auto px-4 ">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <div className="text-purple-600 text-xl">🩺</div>
-              </div>
-              <span className="text-xl font-semibold text-gray-900">
-                MedEase
-              </span>
-            </Link>
-          </div>
+          <Logo />
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -48,19 +42,24 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-gray-600 hover:text-purple-600 transition-colors"
+                className={cn(
+                  "text-gray-600 hover:text-green-800 transition-colors",
+                  item.href === pathname && "text-green-800 font-bold "
+                )}
               >
                 {item.label}
               </Link>
             ))}
           </div>
-          <ThemeButton />
+          <div className="hidden md:block">
+            <ThemeButton />
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-600 hover:text-gray-900 p-2"
+              className="text-gray-700 bg-white rounded-full hover:text-gray-900 p-2"
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -80,7 +79,10 @@ const Navbar = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className="block px-3 py-2 text-gray-600 hover:text-purple-600 transition-colors"
+                className={cn(
+                  "block px-3 py-2 text-gray-600 hover:text-green-600 transition-colors",
+                  item.href === pathname && "text-green-800 font-bold "
+                )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
