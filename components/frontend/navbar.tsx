@@ -53,8 +53,8 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
-            <ThemeButton />
           </div>
+          <ThemeButton />
 
           {/* Mobile menu button */}
           <div className="md:hidden">
