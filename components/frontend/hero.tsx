@@ -1,6 +1,7 @@
 import React from "react";
 import { MoveUpRight } from "lucide-react";
 import BlendedHeroImage from "./Blended";
+import ThemeButton from "./theme-button";
 
 interface FloatingLabelProps {
   text: string;
@@ -64,10 +65,7 @@ const HeroSection = () => {
                 </span>
               </button>
 
-              <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full flex items-center gap-2 hover:shadow-lg hover:shadow-emerald-200/50 transition-all group">
-                Consult Now
-                <MoveUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
-              </button>
+              <ThemeButton href="/consult" title="Consult Now" />
             </div>
 
             {/* Trust Indicator */}
@@ -79,7 +77,7 @@ const HeroSection = () => {
                     className="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-emerald-100 to-white overflow-hidden shadow-sm"
                   >
                     <img
-                      src={`/api/placeholder/40/40`}
+                      src={`/images/user-1.jpg`}
                       alt={`Patient ${index}`}
                       className="w-full h-full object-cover"
                     />

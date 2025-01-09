@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Merriweather } from "next/font/google";
+import { Merriweather, Manrope } from "next/font/google";
 import "./globals.css";
-const merriweather = Merriweather({
-  weight: ["300", "400", "700", "900"],
-  style: ["normal", "italic"],
+const merriweather = Manrope({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  style: ["normal"],
   subsets: ["latin"],
   display: "swap",
 });
