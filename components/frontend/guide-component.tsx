@@ -43,7 +43,7 @@ export default function GuideComponent() {
     ];
   
     return (
-      <div className="md:max-w-7xl mx-auto px-4 py-12">
+      <div className="md:max-w-7xl mx-auto md:px-4 px-1 py-12">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4">
@@ -55,7 +55,7 @@ export default function GuideComponent() {
         </div>
   
         {/* Articles Grid */}
-        <div className="grid lg:grid-cols-2 gap-6 max-w-[85%] mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 w-[90%] md:max-w-[85%] mx-auto">
           {/* Main Featured Article */}
           <div className="bg-white rounded-xl overflow-hidden hover:shadow-xs cursor-pointer">
             <img
