@@ -95,6 +95,7 @@ export default function AppointmentForm() {
         return;
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
