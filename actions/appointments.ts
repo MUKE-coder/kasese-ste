@@ -35,7 +35,7 @@ export async function sendMail(data: AppointmentFormData) {
     const sender = await resend.emails.send({
       from: "Kasese Hospital <info@enerwatengineering.com>",
       to: email,
-      subject: "Thank You for Contacting Enerwat",
+      subject: "Thank You , We have received your appointment",
       html: sendPatientEmail(data),
       // scheduledAt: thirtyMinutesFromNow,
     });

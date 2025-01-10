@@ -145,7 +145,7 @@ export default function AppointmentForm() {
                         },
                       })}
                       type="text"
-                      placeholder="Enter your full name"
+                      placeholder="Eg John Doe"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     />
                     {errors.name && (
@@ -169,7 +169,7 @@ export default function AppointmentForm() {
                         },
                       })}
                       type="email"
-                      placeholder="Enter your email address"
+                      placeholder="Eg johndoe@gmail.com"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     />
                     {errors.email && (
@@ -193,7 +193,7 @@ export default function AppointmentForm() {
                         },
                       })}
                       type="tel"
-                      placeholder="Enter your phone number"
+                      placeholder="Eg 0762063160"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     />
                     {errors.phone && (
@@ -281,7 +281,7 @@ export default function AppointmentForm() {
                     <textarea
                       {...register("additionalInfo")}
                       rows={4}
-                      placeholder="Enter any special requests or details..."
+                      placeholder="Enter any special requests or details... eg What do you support Insurance"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     />
                   </div>
