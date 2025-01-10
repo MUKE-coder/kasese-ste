@@ -1,8 +1,19 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  Loader,
+  Loader2,
+  MapPin,
+  MoveUpRight,
+} from "lucide-react";
 import WavyBackground from "./WavyBackground";
+import toast from "react-hot-toast";
+import { createAppointment, sendMail } from "@/actions/appointments";
+import AppointmentSuccess from "./AppointemntSuccess";
+import { convertDateToIso } from "@/lib/convertDateToIso";
 
 const services = [
   "General Consultation",
@@ -30,7 +41,7 @@ const timeSlots = [
   "4:00 PM",
 ];
 
-interface AppointmentFormData {
+export interface AppointmentFormData {
   name: string;
   email: string;
   phone: string;
@@ -38,6 +49,7 @@ interface AppointmentFormData {
   appointmentDate: string;
   preferredTime: string;
   additionalInfo: string;
+  referenceId: string; // Added reference ID
 }
 
 export default function AppointmentForm() {
@@ -47,10 +59,44 @@ export default function AppointmentForm() {
     formState: { errors },
     reset,
   } = useForm<AppointmentFormData>();
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [appointmentData, setAppointmentData] = useState({
+    date: "",
+    referenceId: "",
+    email: "",
+  });
+  const onSubmit = async (data: AppointmentFormData) => {
+    const referenceId = `KH-${Date.now().toString(36).toUpperCase()}`;
+    data.referenceId = referenceId;
+    try {
+      setLoading(true);
 
-  const onSubmit = (data: AppointmentFormData) => {
-    console.log("Form submitted:", data);
-    reset();
+      const res = await sendMail(data);
+      // Reset form after submission
+      if (res.success) {
+        setLoading(false);
+        reset();
+        setAppointmentData({
+          date: new Date(data.appointmentDate).toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }),
+          referenceId,
+          email: data.email,
+        });
+        setShowSuccess(true);
+        await createAppointment(data);
+      } else {
+        setLoading(false);
+        toast.error(res.message);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -74,184 +120,213 @@ export default function AppointmentForm() {
 
         <div className="grid md:grid-cols-2 gap-8 items-stretch">
           {/* Form Section */}
-          <div className="bg-white/80 backdrop-blur-sm md:p-8 rounded-2xl shadow-lg p-4">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="grid grid-cols-2 gap-6">
-                {/* Name Field */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Name
-                  </label>
-                  <input
-                    {...register("name", {
-                      required: "Name is required",
-                      minLength: {
-                        value: 2,
-                        message: "Name must be at least 2 characters",
-                      },
-                    })}
-                    type="text"
-                    placeholder="Enter your full name"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
+          <div className="">
+            {showSuccess && (
+              <AppointmentSuccess
+                isOpen={showSuccess}
+                onClose={() => setShowSuccess(false)}
+                appointmentData={appointmentData}
+              />
+            )}
+            <div className="bg-white/80 backdrop-blur-sm md:p-8 rounded-2xl shadow-lg p-4">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Name Field */}
+                  <div className="col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Name
+                    </label>
+                    <input
+                      {...register("name", {
+                        required: "Name is required",
+                        minLength: {
+                          value: 2,
+                          message: "Name must be at least 2 characters",
+                        },
+                      })}
+                      type="text"
+                      placeholder="Enter your full name"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Email Field */}
-                <div className="col-span-full md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    {...register("email", {
-                      required: "Email is required",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "Invalid email address",
-                      },
-                    })}
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Email Field */}
+                  <div className="col-span-full ">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <input
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address",
+                        },
+                      })}
+                      type="email"
+                      placeholder="Enter your email address"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Phone Field */}
-                <div className="col-span-full md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    {...register("phone", {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^[0-9]+$/,
-                        message: "Please enter a valid phone number",
-                      },
-                    })}
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
-                  {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.phone.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Phone Field */}
+                  <div className="col-span-full md:col-span-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone Number
+                    </label>
+                    <input
+                      {...register("phone", {
+                        required: "Phone number is required",
+                        pattern: {
+                          value: /^[0-9]+$/,
+                          message: "Please enter a valid phone number",
+                        },
+                      })}
+                      type="tel"
+                      placeholder="Enter your phone number"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.phone.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Service Selection */}
-                <div className="col-span-full md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Service
-                  </label>
-                  <select
-                    {...register("service", {
-                      required: "Please select a service",
-                    })}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  >
-                    <option value="">Choose a service</option>
-                    {services.map((service) => (
-                      <option key={service} value={service}>
-                        {service}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.service && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.service.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Service Selection */}
+                  <div className="col-span-full md:col-span-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Service
+                    </label>
+                    <select
+                      {...register("service", {
+                        required: "Please select a service",
+                      })}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    >
+                      <option value="">Choose a service</option>
+                      {services.map((service) => (
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.service && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.service.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Date Field */}
-                <div className="col-span-full md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Appointment Date
-                  </label>
-                  <input
-                    {...register("appointmentDate", {
-                      required: "Please select a date",
-                    })}
-                    type="date"
-                    min={new Date().toISOString().split("T")[0]}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
-                  {errors.appointmentDate && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.appointmentDate.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Date Field */}
+                  <div className="col-span-full md:col-span-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Appointment Date
+                    </label>
+                    <input
+                      {...register("appointmentDate", {
+                        required: "Please select a date",
+                      })}
+                      type="date"
+                      min={new Date().toISOString().split("T")[0]}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                    {errors.appointmentDate && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.appointmentDate.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Time Selection */}
-                <div className="col-span-full md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Preferred Time
-                  </label>
-                  <select
-                    {...register("preferredTime", {
-                      required: "Please select a time",
-                    })}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  >
-                    <option value="">Select a time slot</option>
-                    {timeSlots.map((time) => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.preferredTime && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.preferredTime.message}
-                    </p>
-                  )}
-                </div>
+                  {/* Time Selection */}
+                  <div className="col-span-full md:col-span-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Preferred Time
+                    </label>
+                    <select
+                      {...register("preferredTime", {
+                        required: "Please select a time",
+                      })}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    >
+                      <option value="">Select a time slot</option>
+                      {timeSlots.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.preferredTime && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.preferredTime.message}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Additional Information */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Additional Information
-                  </label>
-                  <textarea
-                    {...register("additionalInfo")}
-                    rows={4}
-                    placeholder="Enter any special requests or details..."
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
-                </div>
+                  {/* Additional Information */}
+                  <div className="col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Additional Information
+                    </label>
+                    <textarea
+                      {...register("additionalInfo")}
+                      rows={4}
+                      placeholder="Enter any special requests or details..."
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    />
+                  </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  className="col-span-2 bg-emerald-500 text-white py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors duration-200 flex items-center justify-center space-x-2"
-                >
-                  Schedule My Appointment
-                </button>
-              </div>
-            </form>
+                  {/* Submit Button */}
+                  <div className="col-span-2">
+                    {loading ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="col-span-2 bg-gradient-to-r w-full from-[#00bf8f] to-[#001510] text-white py-3 px-6 rounded-lg hover:bg-emerald-600 transition-colors duration-200 flex items-center gap-4 justify-center space-x-2"
+                      >
+                        <Loader2 className="w-8 h-8 animate-spin mr-2" />
+                        Processing please wait...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="mx-auto group flex items-center px-6 py-3 bg-gradient-to-r from-[#00bf8f] to-[#001510] text-white  rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25 relative overflow-hidden w-full font-bold md:text-xl text-sm justify-center"
+                      >
+                        <span className="relative z-10 flex items-center gap-4">
+                          Schedule Appointment
+                          <div className="w-8 h-8 flex items-center justify-center bg-white rounded-full text-black transition-transform group-hover:rotate-45">
+                            <MoveUpRight className="w-6 h-4" />
+                          </div>
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
 
           {/* Info Section */}
           <div className="bg-emerald-900 text-white p-8 rounded-2xl relative overflow-hidden h-full">
             <div className="relative z-10 h-full flex flex-col justify-end items-end">
-              <div className="">
-                <h3 className="text-2xl font-semibold mb-2">
+              <div className="p-4">
+                <h3 className="text-center font-semibold mb-2 bg-lime-200 rounded-full py-1 px-2 text text-green-900 text-sm md:text-xl my-2 mx-2">
                   Your First Step to Better Health
                 </h3>
-                <h2 className="text-4xl font-bold mb-6">
-                  Get 10% Off Your First Appointment!
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                  Get 10% Off Your First{" "}
+                  <span className="font-bold text-lime-50">Appointment!</span>
                 </h2>
 
                 {/* Location and Hours */}
