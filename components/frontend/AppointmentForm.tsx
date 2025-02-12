@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { createAppointment, sendMail } from "@/actions/appointments";
 import AppointmentSuccess from "./AppointemntSuccess";
 import { convertDateToIso } from "@/lib/convertDateToIso";
+import BoldHeading from "./BoldHeading";
 
 const services = [
   "General Consultation",
@@ -106,12 +107,10 @@ export default function AppointmentForm() {
       baseColor="rgb(240, 253, 244)"
       className="py-16"
     >
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-4 max-w-7xl rounded-t-full">
         {/* Title Section */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Book Your Appointment Today
-          </h1>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <BoldHeading title="Book Your Appointment Today" />
           <p className="text-lg text-gray-600">
             Fill out the form below to schedule your visit with our expert team.
             <br />
@@ -325,7 +324,7 @@ export default function AppointmentForm() {
                 <h3 className="text-center font-semibold mb-2 bg-lime-200 rounded-full py-1 px-2 text text-green-900 text-sm md:text-xl my-2 mx-2">
                   Your First Step to Better Health
                 </h3>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 bold-heading">
                   Get 10% Off Your First{" "}
                   <span className="font-bold text-lime-50">Appointment!</span>
                 </h2>

@@ -2,6 +2,7 @@ import React from "react";
 import { MoveUpRight } from "lucide-react";
 import BlendedHeroImage from "./Blended";
 import ThemeButton from "./theme-button";
+import Link from "next/link";
 
 interface FloatingLabelProps {
   text: string;
@@ -44,32 +45,36 @@ const HeroSection = () => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[600px] py-16">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[600px] py-8 md:py-16">
           {/* Left Column - Text Content */}
           <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Empowering Wellness with{" "}
-              <span className="text-emerald-700">Advanced Care</span>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl  font-bold text-gray-900 mb-6 bold-heading text-balance">
+              Empowering Health with{" "}
+              <span className="text-emerald-700"> Specialized Care</span>
             </h1>
 
-            <p className="text-xl text-gray-600 mb-8">
-              Connect with top specialists, explore personalized care, and
-              experience a healthier life—all with just a few clicks.
+            <p className="text-sm md:text-xl text-gray-600 mb-8">
+              Access expert medical specialists, comprehensive healthcare
+              services, and compassionate treatment—all at Kasese Hospital, your
+              trusted healthcare partner.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 mb-12">
-              <button className="px-6 py-3 bg-white text-gray-800 rounded-full border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group">
+            <div className="flex gap-4 mb-12 items-center">
+              <Link
+                href={"/services"}
+                className="px-4 text-sm md:text-base md:px-6 py-3  bg-white text-gray-800 rounded-full border border-emerald-100 hover:border-emerald-200 hover:shadow-md transition-all group"
+              >
                 <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text group-hover:text-transparent transition-all">
-                  Explore Services
+                  Our Services
                 </span>
-              </button>
+              </Link>
 
-              <ThemeButton href="/consult" title="Consult Now" />
+              <ThemeButton href="/book-appointment" title="Book Appointment" />
             </div>
 
             {/* Trust Indicator */}
-            <div className="flex items-center gap-4">
+            {/* <div className="md:flex items-center gap-4 hidden">
               <div className="flex -space-x-3">
                 {[1, 2, 3].map((index) => (
                   <div
@@ -87,10 +92,8 @@ const HeroSection = () => {
               <p className="text-gray-700 font-semibold">
                 <span className="text-emerald-600">50K+</span> Patients Trust Us
               </p>
-            </div>
+            </div> */}
           </div>
-
-          {/* Right Column - Image with Floating Labels */}
           <div className="relative lg:h-[500px] rounded-2xl overflow-hidden shadow-xl shadow-emerald-100">
             <img
               src="/images/hero.png"
@@ -103,7 +106,7 @@ const HeroSection = () => {
               className="top-8 left-8 hover:shadow-lg hover:shadow-emerald-100/50 transition-all"
             />
             <FloatingLabel
-              text="Better Care"
+              text="Quality Care"
               className="top-8 right-8 hover:shadow-lg hover:shadow-emerald-100/50 transition-all"
             />
             <FloatingLabel

@@ -15,10 +15,8 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
+  { label: "About Us", href: "/about-us" },
   { label: "Services", href: "/services" },
-  { label: "Doctors", href: "/doctors" },
-  { label: "Programs", href: "/programs" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -30,9 +28,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#f0fdf4] shadow-sm rounded-none  md:rounded-full mx-0 md:mx-8 md:my-4 my-0">
-      <div className="max-w-7xl mx-auto px-4 ">
-        <div className="flex justify-between items-center h-16">
+    <nav className="bg-[#f0fdf4] shadow-sm rounded-none  md:rounded-full md:border border-b border-green-200 mx-0 md:mx-8 md:my-4 my-0">
+      <div className="max-w-7xl mx-auto px-4  ">
+        <div className="flex justify-between items-center ">
           {/* Logo */}
           <Logo />
 
@@ -44,7 +42,12 @@ const Navbar = () => {
                 href={item.href}
                 className={cn(
                   "text-gray-600 hover:text-green-800 transition-colors",
-                  item.href === pathname && "text-green-800 font-bold "
+                  {
+                    "text-green-800 font-bold bold-heading ":
+                      item.href !== "/" && // Exclude home path
+                      (item.href === pathname || // Exact match
+                        (pathname.includes(item.href) && item.href.length > 1)), // Nested routes, but only if href is not "/"
+                  }
                 )}
               >
                 {item.label}
