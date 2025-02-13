@@ -40,3 +40,13 @@ enum AppointmentStatus {
 }
 
 // Add indexes for common queries
+model Inquiry {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  package   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}

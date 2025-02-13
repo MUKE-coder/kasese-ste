@@ -5,12 +5,19 @@ import { ArrowRight, HelpCircle, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import WavyBackground from "./WavyBackground";
 import ThemeButton from "./theme-button";
+import BoldHeading from "./BoldHeading";
 // import WavyBackground from "@/components/WavyBackground";
 export type FAQProps = {
   question: string;
   answer: string;
 };
-export default function FAQ({ faqs }: { faqs: FAQProps[] }) {
+export default function FAQ({
+  faqs,
+  title = "Frequently Asked Questions",
+}: {
+  faqs: FAQProps[];
+  title?: string;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -19,14 +26,15 @@ export default function FAQ({ faqs }: { faqs: FAQProps[] }) {
       baseColor="rgb(240, 253, 244)" // green-50
       className="py-16"
     >
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div id="faqs" className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <p className="text-sm font-semibold text-green-600 mb-2 uppercase tracking-wide">
-            Frequently Asked Questions
+            {title}
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {/* <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             You ask? We <span className="italic">answer</span>
-          </h2>
+          </h2> */}
+          <BoldHeading title="You ask? We answer" />
         </div>
         <div className="space-y-4">
           {faqs.map((faq, index) => (

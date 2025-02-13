@@ -6,6 +6,9 @@ import { sendAdminEmail, sendPatientEmail } from "@/lib/contact";
 import { AppointmentFormData } from "@/components/frontend/AppointmentForm";
 import { db } from "@/prisma/db";
 import { AppointmentStatus } from "@prisma/client";
+import { sendAdminInquiry, sendClientReply } from "@/email-templates/emails";
+import { ContactFormData } from "@/types/types";
+import { ContactData } from "@/components/frontend/ContactPage";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -104,4 +107,55 @@ export async function getTodaysAppointments() {
       preferredTime: "asc",
     },
   });
+}
+
+export async function contactInquiry(data: ContactData) {
+  // console.log(data);
+  const { email, name, phone, message } = data;
+  if (isEmailBlacklisted(email)) {
+    return {
+      data: null,
+      error: "Please use a valid, non-temporary email address.",
+      status: 409,
+    };
+  }
+  try {
+    // const newInquiry = await db.inquiry.create({
+    //   data: {
+    //     email,
+    //     name,
+    //     phone,
+    //     message,
+    //     package: `Normal Inquiry`,
+    //   },
+    // });
+
+    // SEND MAIL TO ADMIN
+    const adminRes = await resend.emails.send({
+      from: "Kasese Hospital <info@enerwatengineering.com>",
+      to: "jb@desishub.com",
+      subject: `New Contact Inquiry`,
+      html: sendAdminInquiry(data),
+    });
+    const clientRes = await resend.emails.send({
+      from: "Kasese Hospital <info@enerwatengineering.com>",
+      to: email,
+      subject: `Thank You for your Inquiry - Desishub`,
+      html: sendClientReply(name),
+    });
+    // console.log(newInquiry, adminRes, clientRes);
+    // revalidatePath("/dashboard/inquiries");
+    return {
+      error: null,
+      status: 200,
+      data: data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      error: `Something Went wrong, Please try again`,
+      status: 500,
+      data: null,
+    };
+  }
 }

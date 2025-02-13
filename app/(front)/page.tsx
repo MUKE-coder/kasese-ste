@@ -4,6 +4,7 @@ import FAQ from "@/components/frontend/FAQ";
 import GuideComponent from "@/components/frontend/guide-component";
 import HeroSection from "@/components/frontend/hero";
 import MedicalServices from "@/components/frontend/medical-services";
+import InsuranceProviders from "@/components/Insurance";
 
 export default function Home() {
   const faqs = [
@@ -64,8 +65,9 @@ export default function Home() {
       <MedicalServices />
       <DepartmentComponent />
       <AppointmentForm />
+      <InsuranceProviders />
       <FAQ faqs={faqs} />
-      <GuideComponent />
+      {/* <GuideComponent /> */}
     </main>
   );
 }

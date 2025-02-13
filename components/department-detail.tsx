@@ -80,7 +80,7 @@ const DepartmentDetail = ({ slug }: DepartmentDetailProps) => {
       </div>
       {/* FAQs Section */}
       <div className="">
-        <FAQ faqs={faqs} />
+        <FAQ title={`${department.name} FAQs`} faqs={faqs} />
       </div>
 
       {/* Other Departments */}

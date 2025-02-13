@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Merriweather, Manrope } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/frontend/footer";
+import { Toaster } from "react-hot-toast";
 const merriweather = Manrope({
   weight: ["300", "400", "500", "600", "700", "800"],
   style: ["normal"],
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={merriweather.className}>
         <div className="bg-white">{children}</div>
+        <Toaster position="bottom-right" reverseOrder={false} />
         <Footer />
       </body>
     </html>
