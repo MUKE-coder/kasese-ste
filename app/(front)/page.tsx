@@ -5,6 +5,7 @@ import GuideComponent from "@/components/frontend/guide-component";
 import HeroSection from "@/components/frontend/hero";
 import MedicalServices from "@/components/frontend/medical-services";
 import InsuranceProviders from "@/components/Insurance";
+import Loading from "../loading";
 
 export default function Home() {
   const faqs = [

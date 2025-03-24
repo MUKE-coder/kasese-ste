@@ -334,8 +334,10 @@ export default function AppointmentForm() {
                   <div className="flex items-start space-x-3">
                     <MapPin className="w-6 h-6 mt-1" />
                     <div>
-                      <p className="font-medium">123 Health Street</p>
-                      <p className="text-emerald-200">Wellness City, 56789</p>
+                      <p className="font-medium">
+                        P.O.Box 430337, Kasese, Uganda
+                      </p>
+                      {/* <p className="text-emerald-200">Wellness City, 56789</p> */}
                     </div>
                   </div>
 

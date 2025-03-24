@@ -1,6 +1,10 @@
 export const siteConfig = {
   name: "Kasese Hospital",
   shortName: "KH",
+  title: "Kasese Hospital | Learn Web Development",
+  url: "https://coding-school-typescript.vercel.app",
+  ogImage:
+    "https://14j7oh8kso.ufs.sh/f/HLxTbDBCDLwfpobio5w3QgNG9hYzVFo5iLR0yrDPTJedWnBH",
   description:
     "Providing exceptional healthcare services with compassion and expertise since 2008. Our commitment to excellence has made us a trusted healthcare provider in the region.",
 
@@ -12,9 +16,9 @@ export const siteConfig = {
       whatsapp: "+256(0) 775100102",
     },
     email: {
-      primary: "thekasesehospital@gmail.com",
-      support: "thekasesehospital@gmail.com",
-      appointments: "thekasesehospital@gmail.com",
+      primary: "info@kasesehospita.com",
+      support: "info@kasesehospita.com",
+      appointments: "info@kasesehospita.com",
     },
     address: {
       street: "P.O.Box 430337",

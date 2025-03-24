@@ -35,6 +35,10 @@ import {
   Vibrate,
   ChevronFirst,
   UserPlus,
+  Grab,
+  Truck,
+  Eye,
+  Tablet,
 } from "lucide-react";
 
 export const departments = [
@@ -203,7 +207,7 @@ export const departments = [
     id: 3,
     name: "Medical Department",
     slug: "medical",
-    image: "/dep/dent.webp",
+    image: "/dep/medical.jpg",
     description:
       "Comprehensive medical care for various conditions with focus on patient-centered treatment approaches.",
     specialist: "Physician and Infectious Diseases Specialist",
@@ -660,6 +664,274 @@ export const departments = [
       },
     ],
   },
+  {
+    id: 10,
+    name: "Endoscopy Department",
+    slug: "endoscopy",
+    image: "/dep/endoscopy.jpg",
+    description:
+      "Advanced endoscopic procedures for diagnostic and therapeutic interventions with minimal invasiveness and quick recovery.",
+    specialist: "Gastroenterologist",
+    services: [
+      {
+        title: "Gastroscopy",
+        description:
+          "Examination of the upper digestive tract using a flexible endoscope to diagnose and treat conditions.",
+        icon: Eye,
+      },
+      {
+        title: "Colonoscopy",
+        description:
+          "Comprehensive examination of the colon for screening, diagnosis, and treatment of various conditions.",
+        icon: ScanLine,
+      },
+      {
+        title: "ERCP",
+        description:
+          "Specialized procedure to diagnose and treat conditions of the bile ducts and pancreas.",
+        icon: Scan,
+      },
+      {
+        title: "Bronchoscopy",
+        description:
+          "Examination of the airways and lungs for diagnosis and treatment of respiratory conditions.",
+        icon: Stethoscope,
+      },
+    ],
+    faqs: [
+      {
+        question: "How should I prepare for an endoscopic procedure?",
+        answer:
+          "Preparation varies by procedure. You'll receive specific instructions that may include fasting, medication adjustments, and bowel preparation for certain procedures.",
+      },
+      {
+        question: "Are endoscopic procedures painful?",
+        answer:
+          "Most procedures are performed under sedation to ensure comfort. You may experience mild discomfort afterward but rarely pain.",
+      },
+      {
+        question: "How long do endoscopic procedures take?",
+        answer:
+          "Most routine procedures take 15-45 minutes, though preparation and recovery time will extend your hospital stay.",
+      },
+      {
+        question: "When will I get my results?",
+        answer:
+          "Preliminary results are often available immediately. Complete results, including biopsies, typically take 3-7 days.",
+      },
+      {
+        question: "Can I drive myself home after a procedure?",
+        answer:
+          "No, due to sedation effects, you'll need someone to drive you home after endoscopic procedures.",
+      },
+      {
+        question: "What are the risks of endoscopic procedures?",
+        answer:
+          "While generally safe, risks may include bleeding, infection, perforation, and sedation-related complications. These risks will be discussed thoroughly before your procedure.",
+      },
+    ],
+  },
+  {
+    id: 11,
+    name: "Dental Department",
+    slug: "dental",
+    image: "/dep/dental.jpg",
+    description:
+      "Comprehensive dental care services from preventive to restorative treatments in a modern and comfortable environment.",
+    specialist: "Dental Surgeon",
+    services: [
+      {
+        title: "Preventive Dentistry",
+        description:
+          "Regular check-ups, cleanings, and preventive care to maintain optimal oral health.",
+        icon: Grab,
+      },
+      {
+        title: "Restorative Dentistry",
+        description:
+          "Fillings, crowns, bridges, and other treatments to restore damaged or missing teeth.",
+        icon: Construction,
+      },
+      {
+        title: "Oral Surgery",
+        description:
+          "Extractions, wisdom teeth removal, and other surgical procedures for oral health issues.",
+        icon: Scissors,
+      },
+      {
+        title: "Pediatric Dentistry",
+        description:
+          "Child-friendly dental care focusing on prevention and early intervention.",
+        icon: Baby,
+      },
+    ],
+    faqs: [
+      {
+        question: "How often should I have a dental check-up?",
+        answer:
+          "We recommend regular check-ups every six months for most patients. Those with specific dental issues may need more frequent visits.",
+      },
+      {
+        question: "What should I do in case of a dental emergency?",
+        answer:
+          "Contact our emergency dental service immediately. We offer same-day appointments for emergencies such as severe pain, trauma, or broken teeth.",
+      },
+      {
+        question: "Do you treat children?",
+        answer:
+          "Yes, our pediatric dental specialists provide comprehensive care for children in a child-friendly environment.",
+      },
+      {
+        question: "What payment options are available?",
+        answer:
+          "We accept most major insurance plans and offer various payment options including installment plans for extensive treatments.",
+      },
+      {
+        question: "How can I manage dental anxiety?",
+        answer:
+          "We offer various options including conscious sedation and create a calm environment. Please discuss your concerns with us before your appointment.",
+      },
+      {
+        question: "What technologies do you use in your practice?",
+        answer:
+          "We utilize digital X-rays, intraoral cameras, laser dentistry, and other advanced technologies for accurate diagnosis and comfortable treatment.",
+      },
+    ],
+  },
+  {
+    id: 12,
+    name: "Ambulance Services",
+    slug: "ambulance",
+    image: "/dep/amb.webp",
+    description:
+      "Rapid emergency medical transportation with fully equipped ambulances and trained personnel available 24/7.",
+    specialist: "Emergency Medical Technician",
+    services: [
+      {
+        title: "Emergency Response",
+        description:
+          "Rapid response to medical emergencies with fully equipped ambulances and trained personnel.",
+        icon: Ambulance,
+      },
+      {
+        title: "Critical Care Transport",
+        description:
+          "Specialized transportation for critically ill patients requiring continuous medical support.",
+        icon: Activity,
+      },
+      {
+        title: "Inter-facility Transfer",
+        description:
+          "Safe and monitored transportation between healthcare facilities for ongoing care.",
+        icon: Truck,
+      },
+      {
+        title: "On-site Medical Support",
+        description:
+          "Ambulance standby and medical support for events and gatherings.",
+        icon: ClipboardCheck,
+      },
+    ],
+    faqs: [
+      {
+        question: "How quickly can an ambulance respond to an emergency?",
+        answer:
+          "Our average response time is 10-15 minutes within city limits. Rural areas may have longer response times.",
+      },
+      {
+        question: "What types of ambulances are available?",
+        answer:
+          "We operate basic life support (BLS) and advanced life support (ALS) ambulances, equipped according to national standards.",
+      },
+      {
+        question: "Who will be in the ambulance?",
+        answer:
+          "Our ambulances are staffed with at least two trained professionals: an EMT driver and a paramedic or emergency care provider.",
+      },
+      {
+        question: "How do I call for an ambulance?",
+        answer:
+          "Dial our emergency number or the national emergency line. Clearly state your location and the nature of the emergency.",
+      },
+      {
+        question: "Can family members ride in the ambulance?",
+        answer:
+          "In most cases, one family member can accompany the patient, space permitting and at the discretion of the ambulance crew.",
+      },
+      {
+        question: "What should I do while waiting for an ambulance?",
+        answer:
+          "Stay on the line with the dispatcher who will provide first aid instructions. Secure pets, unlock doors, and gather patient medications if possible.",
+      },
+    ],
+  },
+  {
+    id: 13,
+    name: "Outpatient Services",
+    slug: "outpatient-services",
+    image: "/dep/out-patient.jpg",
+    description:
+      "Comprehensive outpatient care with various medical specialties, diagnostics, and treatments in one convenient location.",
+    specialist: "Primary Care Physician",
+    services: [
+      {
+        title: "Primary Care",
+        description:
+          "Comprehensive general healthcare services for routine check-ups and ongoing health management.",
+        icon: Stethoscope,
+      },
+      {
+        title: "Specialized Clinics",
+        description:
+          "Focused care for specific conditions like diabetes, hypertension, and asthma with expert specialists.",
+        icon: UserPlus,
+      },
+      {
+        title: "Minor Procedures",
+        description:
+          "Same-day minor surgical procedures not requiring hospital admission.",
+        icon: Scissors,
+      },
+      {
+        title: "Medication Management",
+        description:
+          "Prescription services and medication review for optimal treatment outcomes.",
+        icon: Tablet,
+      },
+    ],
+    faqs: [
+      {
+        question: "What are your operating hours?",
+        answer:
+          "Our outpatient services operate from 8:00 AM to 6:00 PM Monday through Friday, and 9:00 AM to 2:00 PM on Saturdays.",
+      },
+      {
+        question: "Do I need an appointment?",
+        answer:
+          "Appointments are recommended to minimize waiting time, though we accommodate walk-ins based on availability.",
+      },
+      {
+        question: "What specialists are available?",
+        answer:
+          "We offer access to various specialists including cardiologists, orthopedists, dermatologists, and others on specific days of the week.",
+      },
+      {
+        question: "How long is a typical appointment?",
+        answer:
+          "Initial consultations are typically 30 minutes, while follow-up appointments are usually 15-20 minutes depending on the complexity.",
+      },
+      {
+        question: "Can I get my prescriptions filled at the hospital?",
+        answer:
+          "Yes, our on-site pharmacy can fill most prescriptions immediately after your appointment.",
+      },
+      {
+        question: "What should I bring to my appointment?",
+        answer:
+          "Please bring your ID, insurance information, current medication list, and any relevant medical records or test results.",
+      },
+    ],
+  },
 ];
 
 const services = [
@@ -674,3 +946,5 @@ const services = [
     gradientTo: "to-yellow-900", // Top color
   },
 ];
+
+// Additional imports for new department icons
